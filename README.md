@@ -1,27 +1,22 @@
 # NgxPushape
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.1.
+> Project contained the library used to integrate Pushape back end in an Angular project.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Repository branch model
 
-## Code scaffolding
+The project use [Gitflow](https://datasift.github.io/gitflow/IntroducingGitFlow.html) as branching model.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+---
 
-## Build
+## Commit convention
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+The project use Angular commit convention:
 
-## Running unit tests
+- https://www.conventionalcommits.org/en/v1.0.0-beta.2/
+- https://gist.github.com/stephenparish/9941e89d80e2bc58a153
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This convention is enforce by some git pre-hook.
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+You could make a traditional commit following the syntax rules or use `npm run commit` that help you to construct the commit message in the right way.
