@@ -24,6 +24,9 @@
       "ngx-pushape": [
         "dist/ngx-pushape/ngx-pushape",
         "dist/ngx-pushape"
+      ],
+      "pushape-js": [
+        "./node_modules/pushape-js"
       ]
     }
   },
