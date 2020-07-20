@@ -1,6 +1,13 @@
 {
   "name": "ngx-pushape",
   "version": "0.0.1",
+  "author": "Glue Labs S.r.l.",
+  "description": "Library to integrate Pushape back end in an Angular project",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gluelabs/ngx-pushape.git"
+  },
+  "license": "ISC",
   "peerDependencies": {
     "@angular/common": "^9.1.11",
     "@angular/core": "^9.1.11",
@@ -8,5 +15,17 @@
   },
   "dependencies": {
     "tslib": "^1.10.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/gluelabs/ngx-pushape/issues"
+  },
+  "keywords": [
+    "ngx-pushape",
+    "pushape",
+    "gluelabs",
+    "notification",
+    "push",
+    "ngx",
+    "angular"
+  ]
 }
