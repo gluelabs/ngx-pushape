@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
+import firebase from 'firebase/app';
 import {
-  askForPermissions,
+  askForNotificationPermission,
   InitFirebaseOptions,
   initializeFirebase,
   initializeFirebaseServiveWorker,
@@ -19,7 +20,7 @@ export class NgxPushapeService {
 
   firebaseApp?: firebase.app.App;
   swRegistration?: ServiceWorkerRegistration;
-  permissionToken?: string | false; // FIXME: Next release will remove `false` type
+  permissionToken?: string;
 
   readonly swPushEvents$ = new Subject<Event>();
   readonly swPushapeEvent$ = new Subject<MessageEvent>();
@@ -36,15 +37,15 @@ export class NgxPushapeService {
 
     this.swRegistration = await initializeFirebaseServiveWorker(
       this.firebaseApp,
-      (e) => this.swPushEvents$.next(e) as undefined, // FIXME: Next release will remove `undefined` return type and propagate void
+      (e) => this.swPushEvents$.next(e),
     );
-    this.permissionToken = await askForPermissions(this.firebaseApp, websiteUrl);
+    this.permissionToken = await askForNotificationPermission(this.firebaseApp, websiteUrl);
 
     initializeSwListeners(
       this.swRegistration,
       // FIXME: Next release will remove `undefined` return type and propagate void
-      (e) => this.swNotificationClickEvent$.next(e) as undefined,
-      (e) => this.swPushapeEvent$.next(e) as undefined,
+      (e) => this.swNotificationClickEvent$.next(e),
+      (e) => this.swPushapeEvent$.next(e),
     );
   }
 
