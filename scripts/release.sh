@@ -20,6 +20,7 @@ releaseBranch=release/$1
 git checkout -b $releaseBranch $devBranch
 
 ./node_modules/.bin/json -I -f package.json -e "this.version=\"$1\""
+./node_modules/.bin/json -I -f projects/ngx-pushape/package.json -e "this.version=\"$1\""
 
 # commit version number increment
 git commit -am "build: release $versionLabel"
