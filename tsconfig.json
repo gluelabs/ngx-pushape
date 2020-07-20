@@ -16,10 +16,20 @@
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngx-pushape": [
+        "dist/ngx-pushape/ngx-pushape",
+        "dist/ngx-pushape"
+      ],
+      "pushape-js": [
+        "./node_modules/pushape-js"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
