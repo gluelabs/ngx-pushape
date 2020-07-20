@@ -4,9 +4,9 @@
 branch=$(git symbolic-ref HEAD | sed -e 's,.*/\(.*\),\1,')
 
 # patch, minor, major
-versionLabel=$1
+versionLabel=v$1
 
-if [ -z "$versionLabel" ]; then
+if [ -z "$1" ]; then
   echo "error: no version provided"
   exit
 fi
@@ -14,15 +14,15 @@ fi
 # establish branch and tag name variables
 devBranch=develop
 masterBranch=master
-releaseBranch=release/$versionLabel
+releaseBranch=release/$1
 
 # create the release branch from the -develop branch
 git checkout -b $releaseBranch $devBranch
 
-./node_modules/.bin/json -I -f package.json -e "this.version=\"$versionLabel\""
+./node_modules/.bin/json -I -f package.json -e "this.version=\"$1\""
 
 # commit version number increment
-git commit -am "build: release $versionLabel"
+git commit -am "build: release v$versionLabel"
 
 # create tag for new version from -master
 git tag $versionLabel
