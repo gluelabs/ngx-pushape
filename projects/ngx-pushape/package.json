@@ -11,7 +11,7 @@
   "peerDependencies": {
     "@angular/common": "^9.1.11",
     "@angular/core": "^9.1.11",
-    "pushape-js": "^1.0.1"
+    "pushape-js": "^1.0.2"
   },
   "dependencies": {
     "tslib": "^1.10.0"
