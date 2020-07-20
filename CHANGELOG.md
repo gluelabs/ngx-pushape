@@ -1,3 +1,13 @@
+<a name="0.0.2"></a>
+## [0.0.2](https://github.com/gluelabs/ngx-pushape/compare/0.0.1...0.0.2) (2020-07-20)
+
+
+### Bug Fixes
+
+* remove private package field ([577a8a9](https://github.com/gluelabs/ngx-pushape/commit/577a8a9))
+
+
+
 <a name="0.0.1"></a>
 ## [0.0.1](https://github.com/gluelabs/ngx-pushape/compare/50f8245...0.0.1) (2020-07-20)
 
