@@ -21,6 +21,8 @@ jobs:
       run: npm run build ngx-pushape
     - name: Enter distribution folder
       run: cd dist/ngx-pushape
+    - name: Check current path
+      run: pwd
     - name: Publish if version has been updated
       uses: pascalgn/npm-publish-action@4f4bf159e299f65d21cd1cbd96fc5d53228036df
       with: # All of theses inputs are optional
