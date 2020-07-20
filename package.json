@@ -35,7 +35,7 @@
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2",
-    "pushape-js": "^0.0.9"
+    "pushape-js": "^1.0.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.901.11",
