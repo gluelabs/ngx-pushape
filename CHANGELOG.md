@@ -1,3 +1,13 @@
+<a name="0.0.5"></a>
+## [0.0.5](https://github.com/gluelabs/ngx-pushape/compare/v0.0.4...v0.0.5) (2020-07-20)
+
+
+### Bug Fixes
+
+* remove job with wrong "uses" action ([f1f180a](https://github.com/gluelabs/ngx-pushape/commit/f1f180a))
+
+
+
 <a name="0.0.4"></a>
 ## [0.0.4](https://github.com/gluelabs/ngx-pushape/compare/v0.0.3...v0.0.4) (2020-07-20)
 
