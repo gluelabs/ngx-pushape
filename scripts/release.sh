@@ -22,7 +22,7 @@ git checkout -b $releaseBranch $devBranch
 ./node_modules/.bin/json -I -f package.json -e "this.version=\"$1\""
 
 # commit version number increment
-git commit -am "build: release v$versionLabel"
+git commit -am "build: release $versionLabel"
 
 # create tag for new version from -master
 git tag $versionLabel

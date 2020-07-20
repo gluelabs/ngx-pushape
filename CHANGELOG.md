@@ -1,3 +1,14 @@
+<a name="0.0.4"></a>
+## [0.0.4](https://github.com/gluelabs/ngx-pushape/compare/v0.0.3...v0.0.4) (2020-07-20)
+
+
+### Bug Fixes
+
+* remove double "v" in commit ([86d9af1](https://github.com/gluelabs/ngx-pushape/commit/86d9af1))
+* wrong name in build workflow ([1082d07](https://github.com/gluelabs/ngx-pushape/commit/1082d07))
+
+
+
 <a name="0.0.3"></a>
 ## [0.0.3](https://github.com/gluelabs/ngx-pushape/compare/0.0.2...v0.0.3) (2020-07-20)
 
