@@ -18,8 +18,13 @@ jobs:
     - name: Dependencies Install
       run: npm install
     - name: Build library
-      run: npm run build ngx-pushape --prod
-    - run: cd ./dist/ngx-pushape && npm publish
-      env:
-        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      run: npm run build ngx-pushape -- --prod
+    - name: Publish if version has been updated
+      uses: pascalgn/npm-publish-action@3d228dd9d6c7851b8d24b532dc8d15d74f615043
+      with: # All of theses inputs are optional
+        commit_pattern: "^build: release (\\S+)"
+        workspace: "./dist/ngx-pushape"
+      env: # More info about the environment variables in the README
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Leave this as is, it's automatically generated
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }} # You need to set this in your repo settings
 
