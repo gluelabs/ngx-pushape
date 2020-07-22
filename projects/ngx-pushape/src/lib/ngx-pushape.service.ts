@@ -62,10 +62,11 @@ export class NgxPushapeService {
     return initializeFirebase(options);
   }
 
-  async initializeFirebaseServiveWorker(firebaseApp: firebase.app.App) {
+  async initializeFirebaseServiveWorker(firebaseApp: firebase.app.App, swPathName = 'firebase-messaging-sw.js') {
     this.swRegistration = await initializeFirebaseServiveWorker(
       firebaseApp,
       (e) => this.swPushEvents$.next(e),
+      swPathName,
     );
     return this.swRegistration;
   }
