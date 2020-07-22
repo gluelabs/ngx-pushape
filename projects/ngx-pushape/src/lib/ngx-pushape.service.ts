@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import {
   askForNotificationPermission,
+  hasNotificationPermission,
   InitFirebaseOptions,
   initializeFirebase,
   initializeFirebaseServiveWorker,
@@ -20,7 +21,12 @@ export class NgxPushapeService {
 
   firebaseApp?: firebase.app.App;
   swRegistration?: ServiceWorkerRegistration;
-  permissionToken?: string;
+  /**
+   * Permision token is the value to use in order to receiver push notification.
+   * This token is implicit used by firebase inside the service worker.
+   * We need to send it to the Pushape service in order to correctly subscribe to it.
+   */
+  pushToken?: string;
 
   readonly swPushEvents$ = new Subject<Event>();
   readonly swPushapeEvent$ = new Subject<MessageEvent>();
@@ -33,20 +39,17 @@ export class NgxPushapeService {
     firebaseOptions: InitFirebaseOptions,
     websiteUrl: string,
   ) {
-    this.firebaseApp = initializeFirebase(firebaseOptions);
-
-    this.swRegistration = await initializeFirebaseServiveWorker(
-      this.firebaseApp,
-      (e) => this.swPushEvents$.next(e),
-    );
-    this.permissionToken = await askForNotificationPermission(this.firebaseApp, websiteUrl);
+    this.firebaseApp = this.initializeFirebase(firebaseOptions);
+    this.swRegistration = await this.initializeFirebaseServiveWorker(this.firebaseApp);
+    this.pushToken = await askForNotificationPermission(this.firebaseApp, websiteUrl);
 
     initializeSwListeners(
       this.swRegistration,
-      // FIXME: Next release will remove `undefined` return type and propagate void
       (e) => this.swNotificationClickEvent$.next(e),
       (e) => this.swPushapeEvent$.next(e),
     );
+
+    return this.firebaseApp;
   }
 
   clear() {
@@ -55,6 +58,34 @@ export class NgxPushapeService {
   }
 
   /** Direct API from JS library */
+  initializeFirebase(options: InitFirebaseOptions) {
+    return initializeFirebase(options);
+  }
+
+  async initializeFirebaseServiveWorker(firebaseApp: firebase.app.App) {
+    this.swRegistration = await initializeFirebaseServiveWorker(
+      firebaseApp,
+      (e) => this.swPushEvents$.next(e),
+    );
+    return this.swRegistration;
+  }
+
+  initializeSwListeners(swRegistration: ServiceWorkerRegistration) {
+    initializeSwListeners(
+      swRegistration,
+      (e) => this.swNotificationClickEvent$.next(e),
+      (e) => this.swPushapeEvent$.next(e),
+    );
+  }
+
+  async askForNotificationPermission(firebaseApp: firebase.app.App, websiteUrl: string) {
+    this.pushToken = await askForNotificationPermission(firebaseApp, websiteUrl);
+    return this.pushToken;
+  }
+
+  hasNotificationPermission() {
+    return hasNotificationPermission();
+  }
 
   registerPushape(options: InitPushapeOptions, retryOnError = false, retryAfter = 5000) {
     return registerApiPushape(options, retryOnError, retryAfter);

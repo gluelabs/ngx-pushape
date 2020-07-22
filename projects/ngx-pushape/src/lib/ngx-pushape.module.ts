@@ -4,6 +4,6 @@ import { NgModule } from '@angular/core';
   declarations: [],
   imports: [
   ],
-  exports: []
+  exports: [],
 })
 export class NgxPushapeModule { }
