@@ -31,11 +31,13 @@
     "@angular/platform-browser": "^9.1.12",
     "@angular/platform-browser-dynamic": "^9.1.12",
     "@angular/router": "^9.1.12",
+    "@types/uuid": "^8.0.0",
     "browser-detect": "^0.2.28",
     "firebase": "^7.16.1",
     "pushape-js": "^1.0.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
+    "uuid": "^8.2.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

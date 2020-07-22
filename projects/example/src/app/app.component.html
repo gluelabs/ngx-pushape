@@ -25,7 +25,10 @@
   <ul>
     <li>Initialize firebase app</li>
     <li>
-      If notifications are allow: initialize firebase service worker
+      Initialize firebase service worker
+    </li>
+    <li>
+      If notifications are allow initialize service worker listeners
     </li>
   </ul>
   <p>
@@ -52,48 +55,54 @@
   <p>
     UUID:
     <strong>
-      <span id="uuid">No device token found</span>
+      <span id="uuid">{{ pushapeService.uuid || 'No device token found' }}</span>
     </strong>
   </p>
   <p>
     Pushape id:
     <strong>
-      <span id="pushape-id">No pushape id found</span>
+      <span id="pushape-id">{{ pushapeIdLabel$ | async }}</span>
     </strong>
   </p>
   <p>
     Internal id:
     <strong>
-      <span id="internal-id">No internal id generated</span>
+      <span id="internal-id">{{ pushapeService.internalId || 'No internal id generated' }}</span>
     </strong>
   </p>
   <p>
     App id:
     <strong>
-      <span id="app-id"></span>
+      <span id="app-id">{{ pushapeService.appId }}</span>
     </strong>
   </p>
 
   <div class="d-flex mb-2">
     <button
+      *ngIf="!hasNotificationEnable"
       id="notification-btn"
       class="btn btn-primary mr-2"
-      type="button">
+      type="button"
+      (click)="askNotificationPermissionHandler()">
       Enable notification
     </button>
   </div>
 
   <div class="d-flex">
     <button
+      *ngIf="isPushapeSubscribe$ | async"
       id="unregister-btn"
       class="btn btn-outline-secondary mr-2"
-      type="button">
+      type="button"
+      (click)="unregisterPushapeHandler()">
       Unregister Pushape
     </button>
     <button
+      *ngIf="(isPushapeSubscribe$ | async) === undefined"
       id="register-btn"
       class="btn btn-outline-primary"
-      type="button">
+      type="button"
+      (click)="registerPushapeHandler()">
       Register Pushape
     </button>
   </div>
