@@ -1,3 +1,24 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/gluelabs/ngx-pushape/compare/v0.0.7...v1.0.1) (2020-07-22)
+
+
+### Bug Fixes
+
+* **ngx-pushape:** expose SW path name ([3adf465](https://github.com/gluelabs/ngx-pushape/commit/3adf465))
+* **ngx-pushape:** use absolute path for service worker ([e5baf84](https://github.com/gluelabs/ngx-pushape/commit/e5baf84))
+
+
+### Features
+
+* **example:** cleanup scaffold and insert UI for plaground ([72c7f7d](https://github.com/gluelabs/ngx-pushape/commit/72c7f7d))
+* **example:** implement app ([3caf0af](https://github.com/gluelabs/ngx-pushape/commit/3caf0af))
+* **ngx-pushape:** expose other methods for initialization actions ([40b2233](https://github.com/gluelabs/ngx-pushape/commit/40b2233))
+* **ngx-pushape:** expose simple pushape registration ([2d913c5](https://github.com/gluelabs/ngx-pushape/commit/2d913c5))
+* **ngx-pushape:** expose typescript definition from pushape-js ([a6169e8](https://github.com/gluelabs/ngx-pushape/commit/a6169e8))
+* **ngx-pushape:** improve SW listeners registration check for internals ([7d50613](https://github.com/gluelabs/ngx-pushape/commit/7d50613))
+
+
+
 <a name="0.0.7"></a>
 ## [0.0.7](https://github.com/gluelabs/ngx-pushape/compare/v0.0.6...v0.0.7) (2020-07-21)
 
