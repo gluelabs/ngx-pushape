@@ -8,6 +8,7 @@ import {
   initializeFirebaseServiveWorker,
   initializeSwListeners,
   InitPushapeOptions,
+  initSimplePushape,
   registerApiPushape,
   RemovePushapeOptions,
   unregisterApiPushape,
@@ -86,6 +87,29 @@ export class NgxPushapeService {
 
   hasNotificationPermission() {
     return hasNotificationPermission();
+  }
+
+  registerSimplePushape(options: Partial<InitPushapeOptions>) {
+    if (!this.pushToken) {
+      throw new Error('Cannot register pushape without a regid (push token)');
+    }
+    if (!options.id_app) {
+      throw new Error('Cannot register pushape without an app id');
+    }
+    if (!options.internal_id) {
+      throw new Error('Cannot register pushape without an internal id');
+    }
+    if (!options.uuid) {
+      throw new Error('Cannot register pushape without an uuid');
+    }
+
+    return initSimplePushape({
+      id_app: options.id_app,
+      regid: options.regid || this.pushToken,
+      internal_id: options.internal_id,
+      uuid: options.uuid,
+      platform: options.platform,
+    } as InitPushapeOptions);
   }
 
   registerPushape(options: InitPushapeOptions, retryOnError = false, retryAfter = 5000) {
