@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import firebase from 'firebase/app';
 import {
   askForNotificationPermission,
+  hasNotificationPermission,
   InitFirebaseOptions,
   initializeFirebase,
   initializeFirebaseServiveWorker,
   initializeSwListeners,
   InitPushapeOptions,
+  initSimplePushape,
   registerApiPushape,
   RemovePushapeOptions,
   unregisterApiPushape,
@@ -20,7 +22,12 @@ export class NgxPushapeService {
 
   firebaseApp?: firebase.app.App;
   swRegistration?: ServiceWorkerRegistration;
-  permissionToken?: string;
+  /**
+   * Permision token is the value to use in order to receiver push notification.
+   * This token is implicit used by firebase inside the service worker.
+   * We need to send it to the Pushape service in order to correctly subscribe to it.
+   */
+  pushToken?: string;
 
   readonly swPushEvents$ = new Subject<Event>();
   readonly swPushapeEvent$ = new Subject<MessageEvent>();
@@ -33,20 +40,27 @@ export class NgxPushapeService {
     firebaseOptions: InitFirebaseOptions,
     websiteUrl: string,
   ) {
-    this.firebaseApp = initializeFirebase(firebaseOptions);
+    this.firebaseApp = this.initializeFirebase(firebaseOptions);
+    this.swRegistration = await this.initializeFirebaseServiveWorker(this.firebaseApp);
+    this.pushToken = await askForNotificationPermission(this.firebaseApp, websiteUrl);
 
+    this.initializeSwListeners(this.swRegistration);
+
+    return this.firebaseApp;
+  }
+
+  async initializeFirebaseServiveWorker(firebaseApp: firebase.app.App, swPathName = '/firebase-messaging-sw.js') {
     this.swRegistration = await initializeFirebaseServiveWorker(
-      this.firebaseApp,
+      firebaseApp,
       (e) => this.swPushEvents$.next(e),
+      swPathName,
     );
-    this.permissionToken = await askForNotificationPermission(this.firebaseApp, websiteUrl);
+    return this.swRegistration;
+  }
 
-    initializeSwListeners(
-      this.swRegistration,
-      // FIXME: Next release will remove `undefined` return type and propagate void
-      (e) => this.swNotificationClickEvent$.next(e),
-      (e) => this.swPushapeEvent$.next(e),
-    );
+  async askForNotificationPermission(firebaseApp: firebase.app.App, websiteUrl: string) {
+    this.pushToken = await askForNotificationPermission(firebaseApp, websiteUrl);
+    return this.pushToken;
   }
 
   clear() {
@@ -55,6 +69,48 @@ export class NgxPushapeService {
   }
 
   /** Direct API from JS library */
+  initializeFirebase(options: InitFirebaseOptions) {
+    return initializeFirebase(options);
+  }
+
+  initializeSwListeners(swRegistration = this.swRegistration) {
+    if (!swRegistration) {
+      throw new Error('[NgxPushape] Cannot initialize SW listeners without a registration');
+    }
+
+    initializeSwListeners(
+      swRegistration,
+      (e) => this.swNotificationClickEvent$.next(e),
+      (e) => this.swPushapeEvent$.next(e),
+    );
+  }
+
+  hasNotificationPermission() {
+    return hasNotificationPermission();
+  }
+
+  registerSimplePushape(options: Partial<InitPushapeOptions>) {
+    if (!this.pushToken) {
+      throw new Error('[NgxPushape] Cannot register pushape without a regid (push token)');
+    }
+    if (!options.id_app) {
+      throw new Error('[NgxPushape] Cannot register pushape without an app id');
+    }
+    if (!options.internal_id) {
+      throw new Error('[NgxPushape] Cannot register pushape without an internal id');
+    }
+    if (!options.uuid) {
+      throw new Error('[NgxPushape] Cannot register pushape without an uuid');
+    }
+
+    return initSimplePushape({
+      id_app: options.id_app,
+      regid: options.regid || this.pushToken,
+      internal_id: options.internal_id,
+      uuid: options.uuid,
+      platform: options.platform,
+    } as InitPushapeOptions);
+  }
 
   registerPushape(options: InitPushapeOptions, retryOnError = false, retryAfter = 5000) {
     return registerApiPushape(options, retryOnError, retryAfter);

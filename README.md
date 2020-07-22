@@ -2,6 +2,18 @@
 
 > Project contained the library used to integrate Pushape back end in an Angular project.
 
+In order to use it you need to get Pushape account: https://glue-labs.com/pushape-invio-notifiche-push-ios-android-api-sdk
+
+Browser support: https://caniuse.com/#feat=push-api
+
+---
+
+## Example
+
+In order to run the example use `ng serve example`.
+
+Before start the app, you need to populate `projects/example/firebase-messaging-sw.js` and `projects/example/src/environments` with your Firebase credentials.
+
 ---
 
 ## Repository branch model
