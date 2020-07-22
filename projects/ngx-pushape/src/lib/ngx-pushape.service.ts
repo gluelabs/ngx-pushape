@@ -44,11 +44,7 @@ export class NgxPushapeService {
     this.swRegistration = await this.initializeFirebaseServiveWorker(this.firebaseApp);
     this.pushToken = await askForNotificationPermission(this.firebaseApp, websiteUrl);
 
-    initializeSwListeners(
-      this.swRegistration,
-      (e) => this.swNotificationClickEvent$.next(e),
-      (e) => this.swPushapeEvent$.next(e),
-    );
+    this.initializeSwListeners(this.swRegistration);
 
     return this.firebaseApp;
   }
@@ -77,7 +73,11 @@ export class NgxPushapeService {
     return initializeFirebase(options);
   }
 
-  initializeSwListeners(swRegistration: ServiceWorkerRegistration) {
+  initializeSwListeners(swRegistration = this.swRegistration) {
+    if (!swRegistration) {
+      throw new Error('[NgxPushape] Cannot initialize SW listeners without a registration');
+    }
+
     initializeSwListeners(
       swRegistration,
       (e) => this.swNotificationClickEvent$.next(e),
@@ -91,16 +91,16 @@ export class NgxPushapeService {
 
   registerSimplePushape(options: Partial<InitPushapeOptions>) {
     if (!this.pushToken) {
-      throw new Error('Cannot register pushape without a regid (push token)');
+      throw new Error('[NgxPushape] Cannot register pushape without a regid (push token)');
     }
     if (!options.id_app) {
-      throw new Error('Cannot register pushape without an app id');
+      throw new Error('[NgxPushape] Cannot register pushape without an app id');
     }
     if (!options.internal_id) {
-      throw new Error('Cannot register pushape without an internal id');
+      throw new Error('[NgxPushape] Cannot register pushape without an internal id');
     }
     if (!options.uuid) {
-      throw new Error('Cannot register pushape without an uuid');
+      throw new Error('[NgxPushape] Cannot register pushape without an uuid');
     }
 
     return initSimplePushape({
