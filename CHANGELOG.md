@@ -1,3 +1,13 @@
+<a name="1.0.3"></a>
+## [1.0.3](https://github.com/gluelabs/ngx-pushape/compare/v1.0.2...v1.0.3) (2020-07-22)
+
+
+### Bug Fixes
+
+* wrong env name use for NPM token ([1298c8d](https://github.com/gluelabs/ngx-pushape/commit/1298c8d))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/gluelabs/ngx-pushape/compare/v1.0.1...v1.0.2) (2020-07-22)
 
