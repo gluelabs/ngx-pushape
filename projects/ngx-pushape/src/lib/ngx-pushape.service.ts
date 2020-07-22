@@ -53,6 +53,20 @@ export class NgxPushapeService {
     return this.firebaseApp;
   }
 
+  async initializeFirebaseServiveWorker(firebaseApp: firebase.app.App, swPathName = 'firebase-messaging-sw.js') {
+    this.swRegistration = await initializeFirebaseServiveWorker(
+      firebaseApp,
+      (e) => this.swPushEvents$.next(e),
+      swPathName,
+    );
+    return this.swRegistration;
+  }
+
+  async askForNotificationPermission(firebaseApp: firebase.app.App, websiteUrl: string) {
+    this.pushToken = await askForNotificationPermission(firebaseApp, websiteUrl);
+    return this.pushToken;
+  }
+
   clear() {
     this.firebaseApp = undefined;
     this.swRegistration = undefined;
@@ -63,26 +77,12 @@ export class NgxPushapeService {
     return initializeFirebase(options);
   }
 
-  async initializeFirebaseServiveWorker(firebaseApp: firebase.app.App, swPathName = 'firebase-messaging-sw.js') {
-    this.swRegistration = await initializeFirebaseServiveWorker(
-      firebaseApp,
-      (e) => this.swPushEvents$.next(e),
-      swPathName,
-    );
-    return this.swRegistration;
-  }
-
   initializeSwListeners(swRegistration: ServiceWorkerRegistration) {
     initializeSwListeners(
       swRegistration,
       (e) => this.swNotificationClickEvent$.next(e),
       (e) => this.swPushapeEvent$.next(e),
     );
-  }
-
-  async askForNotificationPermission(firebaseApp: firebase.app.App, websiteUrl: string) {
-    this.pushToken = await askForNotificationPermission(firebaseApp, websiteUrl);
-    return this.pushToken;
   }
 
   hasNotificationPermission() {
