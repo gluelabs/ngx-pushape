@@ -1,6 +1,6 @@
 {
   "name": "ngx-pushape",
-  "version": "0.0.7",
+  "version": "1.0.1",
   "author": "Glue Labs S.r.l.",
   "description": "Library to integrate Pushape back end in an Angular project",
   "repository": {
