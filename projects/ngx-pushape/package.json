@@ -9,8 +9,8 @@
   },
   "license": "ISC",
   "peerDependencies": {
-    "@angular/common": "^9.1.11",
-    "@angular/core": "^9.1.11",
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0",
     "pushape-js": "^1.0.2",
     "browser-detect": "^0.2.28",
     "firebase": "^7.15.4"
