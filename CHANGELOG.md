@@ -1,3 +1,13 @@
+<a name="1.0.5"></a>
+## [1.0.5](https://github.com/gluelabs/ngx-pushape/compare/v1.0.4...v1.0.5) (2020-09-19)
+
+
+### Bug Fixes
+
+* decrise angular peer dependecies ([2de6a6a](https://github.com/gluelabs/ngx-pushape/commit/2de6a6a))
+
+
+
 <a name="1.0.4"></a>
 ## [1.0.4](https://github.com/gluelabs/ngx-pushape/compare/v1.0.3...v1.0.4) (2020-07-22)
 
